@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using Euler.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,27 +24,9 @@ namespace _005SmallestMultiple
             Console.Read();
         }
 
-        static IEnumerable<int> GeneratePrimes(int limit)
-        {
-            if (limit < 2) yield break;
-            yield return 2; if (limit < 3u) yield break;
-            var BFLMT = (limit - 3u) / 2u;
-            var SQRTLMT = ((int)(Math.Sqrt((double)limit)) - 3u) / 2u;
-            var buf = new BitArray((int)BFLMT + 1, true);
-            for (var i = 0u; i <= BFLMT; ++i) if (buf[(int)i])
-                {
-                    int p = (int)(3u + i + i); if (i <= SQRTLMT)
-                    {
-                        for (var j = (p * p - 3u) / 2u; j <= BFLMT; j += p)
-                            buf[(int)j] = false;
-                    }
-                    yield return p;
-                }
-        }
-
         private static long Run(int limit)
         {
-            IList<int> primes = GeneratePrimes(limit).ToList();
+            IList<int> primes = PrimesUtility.GeneratePrimesBelowUpperLimit(limit).Select(a => (int)a).ToList();
             IList<int> resultNumbers = new List<int>();
             IList<int> notPrimesFiltered = Enumerable.Range(2, limit - 1).ToList();
             int primesCount = primes.Count;

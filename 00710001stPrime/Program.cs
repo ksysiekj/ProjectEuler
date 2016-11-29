@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Euler.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace _00710001stPrime
 {
@@ -10,22 +13,19 @@ namespace _00710001stPrime
 
         static void Main()
         {
-            long primeMax = 0;
+            List<int> primeMax = new List<int>();
 
             double totalMiliSeconds = Euler.Common.MeasureTool.MeasureTotalMiliSeconds(() =>
             {
-                primeMax = Run(limit);
+                primeMax = PrimesUtility.GenerateSpecificNumberOfPrimes(limit);
             });
 
 
-            Console.WriteLine("10 001st prime: " + primeMax + ". Calculated in " + totalMiliSeconds + " ms");
+            Console.WriteLine("10 001st prime: " + primeMax.Last() + ". Calculated in " + totalMiliSeconds + " ms");
 
             Console.Read();
         }
 
-        private static long Run(int limit)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
